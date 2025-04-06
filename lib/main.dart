@@ -1,3 +1,4 @@
+import 'package:animated_notch_bottom_bar/animated_notch_bottom_bar/animated_notch_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:mochimind/pages/search_page.dart';
 import 'pages/home_page.dart';
@@ -28,9 +29,10 @@ class NavigationWrapper extends StatefulWidget {
 }
 
 class _NavigationWrapperState extends State<NavigationWrapper> {
-  int index = 0;
+  final PageController _pageController = PageController();
+  final _notchController = NotchBottomBarController(index: 0);
 
-  final screens = [
+  final List<Widget> _screens = [
     const HomePage(),
     const GridPage(),
     const AddEditPage(),
@@ -38,18 +40,56 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
   ];
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: screens[index],
-      bottomNavigationBar: NavigationBar(
-        selectedIndex: index,
-        onDestinationSelected: (value) => setState(() => index = value),
-        destinations: const [
-          NavigationDestination(icon: Icon(Icons.swipe), label: "Swipe"),
-          NavigationDestination(icon: Icon(Icons.grid_view), label: "Grid"),
-          NavigationDestination(icon: Icon(Icons.add), label: "Add"),
-          NavigationDestination(icon: Icon(Icons.search), label: "Search")
+      resizeToAvoidBottomInset: false,
+      body: PageView(
+        controller: _pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: _screens,
+      ),
+      extendBody: true,
+      bottomNavigationBar: AnimatedNotchBottomBar(
+        notchBottomBarController: _notchController,
+        color: Colors.deepPurple,
+        showLabel: true,
+        notchColor: Colors.white,
+        removeMargins: true,
+        bottomBarWidth: 500,
+        durationInMilliSeconds: 300,
+        bottomBarItems:  const [
+          BottomBarItem(
+            inActiveItem: Icon(Icons.swipe,color: Colors.white),
+            activeItem: Icon(Icons.swipe, color: Colors.deepPurple),
+            itemLabel: 'Swipe',
+          ),
+          BottomBarItem(
+            inActiveItem: Icon(Icons.grid_view,color: Colors.white),
+            activeItem: Icon(Icons.grid_view, color: Colors.deepPurple),
+            itemLabel: 'Grid',
+          ),
+          BottomBarItem(
+            inActiveItem: Icon(Icons.add,color: Colors.white,),
+            activeItem: Icon(Icons.add, color: Colors.deepPurple),
+            itemLabel: 'Add',
+          ),
+          BottomBarItem(
+            inActiveItem: Icon(Icons.search,color: Colors.white),
+            activeItem: Icon(Icons.search, color: Colors.deepPurple),
+            itemLabel: 'Search',
+          ),
         ],
+        onTap: (index) {
+          _notchController.index = index;
+          _pageController.jumpToPage(index);
+        }, kIconSize: 20, kBottomRadius: 20,
+
       ),
     );
   }

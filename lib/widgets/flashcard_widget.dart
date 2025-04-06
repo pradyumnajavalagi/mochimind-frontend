@@ -32,6 +32,7 @@ class FlashcardWidget extends StatelessWidget {
               ] else ...[
                 const Text("Tap to reveal details", style: TextStyle(fontStyle: FontStyle.italic)),
               ],
+              const SizedBox(height: 100,)
             ],
           ),
         ),
