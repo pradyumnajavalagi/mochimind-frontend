@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mochimind/pages/search_page.dart';
 import 'pages/home_page.dart';
 import 'pages/grid_page.dart';
 import 'pages/add_edit_page.dart';
@@ -33,6 +34,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
     const HomePage(),
     const GridPage(),
     const AddEditPage(),
+    const SearchPage(),
   ];
 
   @override
@@ -46,6 +48,7 @@ class _NavigationWrapperState extends State<NavigationWrapper> {
           NavigationDestination(icon: Icon(Icons.swipe), label: "Swipe"),
           NavigationDestination(icon: Icon(Icons.grid_view), label: "Grid"),
           NavigationDestination(icon: Icon(Icons.add), label: "Add"),
+          NavigationDestination(icon: Icon(Icons.search), label: "Search")
         ],
       ),
     );

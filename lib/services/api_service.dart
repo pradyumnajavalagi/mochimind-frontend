@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../models/flashcard_model.dart';
 
 class ApiService {
-  static const baseUrl = 'http://192.168.29.217:8080';
+  static const baseUrl = 'http://10.0.2.2:8080';
 
   static Future<List<Flashcard>> fetchRandomFlashcards() async {
     final res = await http.get(Uri.parse('$baseUrl/flashcards/random'));

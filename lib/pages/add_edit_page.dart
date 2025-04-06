@@ -38,7 +38,7 @@ class _AddEditPageState extends State<AddEditPage> {
 
     final request = http.MultipartRequest(
       'POST',
-      Uri.parse('http://192.168.29.217:8080/upload'),
+      Uri.parse('http://10.0.2.2:8080/upload'),
     );
 
     request.files.add(await http.MultipartFile.fromPath(

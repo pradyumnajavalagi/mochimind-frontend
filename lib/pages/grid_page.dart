@@ -50,7 +50,11 @@ class _GridPageState extends State<GridPage> {
             child: Card(
               child: Column(
                 children: [
-                  Image.network(card.kanjiImageUrl, height: 80),
+                  Expanded(
+                    child: Image.network(card.kanjiImageUrl,
+                        fit: BoxFit.cover,
+                    ),
+                  ),
                   Text(card.onyomi),
                   Text(card.kunyomi),
                 ],
